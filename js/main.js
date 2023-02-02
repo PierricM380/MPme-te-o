@@ -1,11 +1,14 @@
-// 
+import arrayDaysInOrder from "./manageTime.js";
+
+// console.log(arrayDaysInOrder);
+
 const weather = document.querySelector('.weather');
 const temperature = document.querySelector('.temperature');
 const lacalisation = document.querySelector('.lacalisation');
 const hourForecastName = document.querySelectorAll('.hour-forecast-name');
 const hourForecastValue = document.querySelectorAll('.hour-forecast-value');
 
-const apiKey = '955c77183754066bcfc64d9e176b7e5e';
+const apiKey = 'here your api key';
 let resultsApi;
 
 // if browser localistion is activated
@@ -37,7 +40,7 @@ function callApi(long, lat) {
         .then((data) => {
             resultsApi = data;
 
-            console.log(data);
+            // console.log(data);
 
             // Add in DOM the informations texts fetched by api
             weather.innerText = resultsApi.current.weather[0].description;
@@ -64,5 +67,7 @@ function callApi(long, lat) {
             for (j = 0; j < hourForecastValue.length; j++) {
                 hourForecastValue[j].innerHTML = `${Math.trunc(resultsApi.hourly[j * 3].temp)}°C`;
             }
+
+            // Display third first letter of days
         })
 }
