@@ -5,8 +5,14 @@ import arrayDaysInOrder from "./manageTime.js";
 const weather = document.querySelector('.weather');
 const temperature = document.querySelector('.temperature');
 const lacalisation = document.querySelector('.lacalisation');
+
 const hourForecastName = document.querySelectorAll('.hour-forecast-name');
 const hourForecastValue = document.querySelectorAll('.hour-forecast-value');
+
+const dayForecastName = document.querySelectorAll('.day-forecast-name');
+const dayForecastTemp = document.querySelectorAll('.day-forecast-temp');
+
+const weatherIcon = document.querySelector('.weather-icon');
 
 const apiKey = ''; // Here your api key
 let resultsApi;
@@ -68,7 +74,22 @@ function callApi(long, lat) {
                 hourForecastValue[j].innerText = `${Math.trunc(resultsApi.hourly[j * 3].temp)}°C`;
             }
 
-            // Display third first letter of days
+            // Display third first letters of days
+            for (let k = 0; k < dayForecastName.length; k++) {
+                dayForecastName[k].innerText = arrayDaysInOrder[k].slice(0,3);
+                
+            }
 
+            // Display Temp by day
+            for (let t = 0; t < 7; t++) {
+                dayForecastTemp[t].innerText = `${Math.trunc(resultsApi.daily[t + 1].temp.day)}°C`
+            }
+
+            // Display icon in block-logo tag
+            if(actualHour >= 6 && actualHour < 21) {
+                weatherIcon.src = `ressources/icons/day/${resultsApi.current.weather[0].icon}.svg`
+            } else {
+                weatherIcon.src = `ressources/icons/night/${resultsApi.current.weather[0].icon}.svg`
+            }
         })
-}
+} 
